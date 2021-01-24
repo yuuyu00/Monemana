@@ -1,0 +1,11 @@
+type Balance {
+  amount: Int!
+  id: Int!
+  name: String!
+  member: [User!]!
+}
+
+extend type Query {
+  balance(id: Int!): Balance!
+  balances(userId: Int!): [Balance!]!
+}

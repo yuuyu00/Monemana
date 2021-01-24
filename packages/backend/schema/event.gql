@@ -1,0 +1,21 @@
+type Event {
+  addedBy: User!
+  amount: Int!
+  id: Int!
+  memo: String
+}
+
+input CreateEventInput {
+  addedById: Int!
+  amount: Int!
+  memo: String
+}
+
+extend type Query {
+  events(addedById: Int): [Event!]!
+  event(id: Int!): Event!
+}
+
+extend type Mutation {
+  createEvent(input: CreateEventInput!): Event!
+}

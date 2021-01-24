@@ -1,0 +1,66 @@
+type Balance {
+  amount: Int!
+  id: Int!
+  name: String!
+  member: [User!]!
+}
+
+extend type Query {
+  balance(id: Int!): Balance!
+  balances(userId: Int!): [Balance!]!
+}
+
+type Event {
+  addedBy: User!
+  amount: Int!
+  id: Int!
+  memo: String
+}
+
+input CreateEventInput {
+  addedById: Int!
+  amount: Int!
+  memo: String
+}
+
+extend type Query {
+  events(addedById: Int): [Event!]!
+  event(id: Int!): Event!
+}
+
+extend type Mutation {
+  createEvent(input: CreateEventInput!): Event!
+}
+
+type Query {
+  node(id: ID!): Node
+}
+type Mutation {
+  noop(input: NoopInput): NoopPayload
+}
+interface Node {
+  id: ID!
+}
+input NoopInput {
+  clientMutationId: String
+}
+type NoopPayload {
+  clientMutationId: String
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type User {
+  email: String!
+  events: [Event!]!
+  id: Int!
+  name: String
+}
+
+extend type Query {
+  user(id: Int!): User!
+  users(take: Int): [User!]!
+}
